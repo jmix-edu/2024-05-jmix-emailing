@@ -8,8 +8,10 @@
             <fetchPlan extends="_base">
                 <property name="assignee" fetchPlan="_base"/>
                 <property name="project" fetchPlan="_base"/>
+                <property name="timeEntries" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
+            <collection id="timeEntriesDc" property="timeEntries"/>
         </instance>
     </data>
     <facets>
@@ -36,10 +38,30 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <fileStorageUploadField id="attachmentField" property="attachment"/>
+            <dateTimePicker id="dueDateField" property="dueDate"/>
         </formLayout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="timeEntriesDataGrid.create"/>
+            <button action="timeEntriesDataGrid.edit"/>
+            <button action="timeEntriesDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="timeEntriesDataGrid" dataContainer="timeEntriesDc" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="timeSpent"/>
+                <column property="entryDate"/>
+                <column property="description"/>
+            </columns>
+        </dataGrid>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
+            <button id="notifyAssigneeBtn" text="Notify assignee" icon="ENVELOPE"/>
         </hbox>
     </layout>
 </view>
